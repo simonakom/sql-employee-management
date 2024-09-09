@@ -60,13 +60,13 @@ SELECT * FROM employee
 
 --1. Select the company name which employs most females.
 
-SELECT company.company_name, COUNT(employee.employee_id) AS female_count    -----> selects the company_name from company table and counts the number of female employees in each company by counting the employee_id from the employee table
-FROM employee                                                               -----> data from the employee table
-JOIN company ON employee.company_id = company.company_id                    -----> matches rows where company_id from employee table equals the company_id in company table
-WHERE employee.sex = 'Female'                                               -----> filters the employees to include only female
-GROUP BY company.company_name                                               -----> groups the result by company_name
-ORDER BY female_count DESC                                                  -----> sorting descending order
-LIMIT 1;                                                                    -----> limits the result to only 1 row (first)
+SELECT company.company_name, COUNT(employee.employee_id) AS female_count     -----> selects the company_name from company table and counts the number of female employees in each company by counting the employee_id from the employee table
+FROM employee                                                                -----> data from the employee table
+JOIN company ON employee.company_id = company.company_id                     -----> matches rows where company_id from employee table equals the company_id in company table
+WHERE employee.sex = 'Female'                                                -----> filters the employees to include only female
+GROUP BY company.company_name                                                -----> groups the result by company_name
+ORDER BY female_count DESC                                                   -----> sorting descending order
+LIMIT 1;                                                                     -----> limits the result to only 1 row (first)
 
 --2. Select the company name which pays the highest monthly salary. (do not convert to hourly rate)
 
@@ -82,9 +82,9 @@ LIMIT 1;                                                                      --
 
 SELECT employee.forename, employee.surname, company.company_name
 FROM employee
-JOIN company ON employee.company_id = company.company_id                     -----> join the employee table with the company table using the company_id
-WHERE employee.salary_type = 'None'                                          ----->  Check if salary_type is set to 'None'
-  AND employee.salary = 0.00;                                                -----> Check if salary is 0.00
+JOIN company ON employee.company_id = company.company_id                    -----> join the employee table with the company table using the company_id
+WHERE employee.salary_type = 'None'                                         ----->  Check if salary_type is set to 'None'
+  AND employee.salary = 0.00;                                               -----> Check if salary is 0.00
 
 
 
@@ -97,7 +97,7 @@ WHERE employee.salary_type = 'None'                                          ---
 -- table to link employees and companies
 
 CREATE TABLE employee_company (
-    PRIMARY KEY (employee_id, company_id),                                   ----->  uniqueness of the pair.
+    PRIMARY KEY (employee_id, company_id),                                   ----->  uniqueness of the pair
     employee_id INT,
     company_id INT,
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
