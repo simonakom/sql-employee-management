@@ -31,23 +31,28 @@ CREATE TABLE employee (
 
 ----------------employee table (with salary)-------------------------------------------------------
 
+--> Add salary_type column with default value and constraints
 ALTER TABLE employee
-ADD COLUMN salary_type VARCHAR(10) CHECK (salary_type IN ('Hourly', 'Monthly'));    -----> can accept also NULL
+ADD COLUMN salary_type VARCHAR(10) CHECK (salary_type IN ('Hourly', 'Monthly', 'None')) DEFAULT 'None' NOT NULL;
 
+-->  Add salary column with default value
 ALTER TABLE employee
-ADD COLUMN salary DECIMAL(10, 2);                                                    -----> can be a numeric or NULL
+ADD COLUMN salary DECIMAL(10, 2) DEFAULT 0.00 NOT NULL;
 
-INSERT INTO employee (company_id, forename, surname, birth_date, sex, salary_type, salary) VALUES
-(1, 'John', 'Doe', '1985-03-10', 'Male', 'Monthly', 5000),
-(2, 'Jane', 'Smith', '1990-07-25', 'Female', 'Hourly', 30),
-(1, 'Alice', 'Johnson', '1988-11-15', 'Female', 'Monthly', 4500),
-(3, 'Bob', 'Brown', '1992-04-12', 'Other', 'Hourly', 25),
-(4, 'Chris', 'Miller', '1987-06-22', 'Female', 'Monthly', 5500),
-(2, 'Emily', 'Davis', '1995-12-01', 'Female', 'Hourly', 28),
-(3, 'Michael', 'Wilson', '1993-03-30', 'Male', NULL, NULL),
-(4, 'Laura', 'White', '1989-08-17', 'Female', 'Monthly', 5200),
-(1, 'Kevin', 'Moore', '1991-01-22', 'Male', NULL, NULL),
-(4, 'Sophia', 'Taylor', '1996-05-05', 'Female', 'Hourly', 27);
+INSERT INTO employee (company_id, forename, surname, birth_date, sex, salary_type, salary) 
+VALUES 
+(1, 'John', 'Doe', '1985-03-10', 'Male', 'Monthly', 5000),  
+(2, 'Jane', 'Smith', '1990-07-25', 'Female', 'Hourly', 30),  
+(4, 'Chris', 'Miller', '1987-06-22', 'Female', 'Monthly', 5500), 
+(4, 'Sophia', 'Taylor', '1996-05-05', 'Female', 'Hourly', 27),   
+(1, 'Alice', 'Johnson', '1988-11-15', 'Female', 'Monthly', 4500);
+
+--> Insert without specifying salary_type and salary (uses default values)
+INSERT INTO employee (company_id, forename, surname, birth_date, sex) 
+VALUES 
+(4, 'Laura', 'White', '1989-08-17', 'Female'), 	               ----> Default salary_type ('None') and salary (0.00)
+(3, 'Michael', 'Wilson', '1993-03-30', 'Male'), 	
+(1, 'Kevin', 'Moore', '1991-01-22', 'Male'); 		
 
 SELECT * FROM employee
 
@@ -69,17 +74,17 @@ SELECT company.company_name, MAX(employee.salary) AS highest_monthly_salary   --
 FROM employee                                                                 -----> data from the employee table
 JOIN company ON employee.company_id = company.company_id                      -----> matches rows where company_id from employee table equals the company_id in company table
 WHERE employee.salary_type = 'Monthly'                                        -----> considering employees who have a monthly salary
-GROUP BY company.company_name --groups the result by company_name             -----> groups the result by company_name                 
-ORDER BY highest_monthly_salary DESC --sorting descending order               -----> sorting descending order
-LIMIT 1;  --limits the result to only 1 row                                   -----> limits the result to only 1 row (first)
+GROUP BY company.company_name                                                 -----> groups the result by company_name                 
+ORDER BY highest_monthly_salary DESC                                          -----> sorting descending order
+LIMIT 1;                                                                      -----> limits the result to only 1 row (first)
 
 -- 3. Find all employees who do not have a salary
 
 SELECT employee.forename, employee.surname, company.company_name
 FROM employee
 JOIN company ON employee.company_id = company.company_id                     -----> join the employee table with the company table using the company_id
-WHERE employee.salary IS NULL OR employee.salary_type IS NULL;
-
+WHERE employee.salary_type = 'None'                                          ----->  Check if salary_type is set to 'None'
+  AND employee.salary = 0.00;                                                -----> Check if salary is 0.00
 
 
 
@@ -140,6 +145,7 @@ SELECT employee.forename, employee.surname, company.company_name
 FROM employee
 JOIN employee_company ON employee.employee_id = employee_company.employee_id
 JOIN company ON employee_company.company_id = company.company_id
-WHERE employee.salary IS NULL OR employee.salary_type IS NULL;
+WHERE employee.salary_type = 'None'  
+  AND employee.salary = 0.00;        
 
 
