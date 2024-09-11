@@ -11,7 +11,7 @@ The schema should allow the following requirements:
 5. Salary may not be entered.
 
 ## Populate the data:
-- Employee table should have at least 10 rows
+- Employee table should have at least 8 rows
 - There should be at least 4 companies.
 
 ## Write the following quries:
