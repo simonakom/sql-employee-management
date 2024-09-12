@@ -1,4 +1,4 @@
-----------------company table----------------------------------------------------------------------
+----------------Company table----------------------------------------------------------------------
 
 CREATE TABLE company (
     company_id SERIAL PRIMARY KEY,                
@@ -15,7 +15,7 @@ INSERT INTO company (company_name, address, phone_number) VALUES
 
 SELECT * FROM company
 
-----------------employee table (without salary)----------------------------------------------------
+----------------Employee table (without salary)----------------------------------------------------
 
 CREATE TABLE employee (
     employee_id SERIAL PRIMARY KEY,      
@@ -27,13 +27,13 @@ CREATE TABLE employee (
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
 
-----------------employee table (with salary)-------------------------------------------------------
+----------------Employee table (with salary)-------------------------------------------------------
 
 --> Add salary_type column with default value and constraints
 ALTER TABLE employee
 ADD COLUMN salary_type VARCHAR(10) CHECK (salary_type IN ('Hourly', 'Monthly', 'None')) DEFAULT 'None' NOT NULL;
 
--->  Add salary column with default value
+--> Add salary column with default value
 ALTER TABLE employee
 ADD COLUMN salary DECIMAL(10, 2) DEFAULT 0.00 NOT NULL;
 
@@ -54,9 +54,9 @@ VALUES
 
 SELECT * FROM employee
 
--------------------queries-------------------------------------------------------------------------
+-------------------Queries-------------------------------------------------------------------------
 
---1. Select the company name which employs most females.
+--1. Select the company name which employs most females
 
 SELECT company.company_name, COUNT(employee.employee_id) AS female_count     -----> selects the company_name from company table and counts the number of female employees in each company by counting the employee_id from the employee table
 FROM employee                                                                -----> data from the employee table
@@ -81,17 +81,17 @@ LIMIT 1;                                                                      --
 SELECT employee.forename, employee.surname, company.company_name
 FROM employee
 JOIN company ON employee.company_id = company.company_id                    -----> join the employee table with the company table using the company_id
-WHERE employee.salary_type = 'None'                                         -----> Check if salary_type is set to 'None'
-  AND employee.salary = 0.00;                                               -----> Check if salary is 0.00
+WHERE employee.salary_type = 'None'                                         -----> check if salary_type is set to 'None'
+  AND employee.salary = 0.00;                                               -----> check if salary is 0.00
 
-  
+
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
-----------------employee may have more than company (many-to-many)---------------------------------
+----------------Employee may have more than company (many-to-many)---------------------------------
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 
--- table to link employees and companies
+-- Table to link employees and companies
 
 CREATE TABLE employee_company (
     PRIMARY KEY (employee_id, company_id),                                   ----->  uniqueness of the pair
@@ -113,9 +113,9 @@ INSERT INTO employee_company (employee_id, company_id) VALUES
 
 SELECT * FROM employee_company
 
--------------------queries-------------------------------------------------------------------------
+-------------------Queries-------------------------------------------------------------------------
 
---1. Select the Company Name Which Employs the Most Females
+--1. Select the company name wich employs the most females
 
 SELECT company.company_name, COUNT(employee.employee_id) AS female_count
 FROM employee
@@ -126,7 +126,7 @@ GROUP BY company.company_name
 ORDER BY female_count DESC
 LIMIT 1;
 
---2. Select the Company Name Which Pays the Highest Monthly Salary
+--2. Select the company name which pays the highest monthly salary
 
 SELECT company.company_name, MAX(employee.salary) AS highest_monthly_salary
 FROM employee
@@ -137,7 +137,7 @@ GROUP BY company.company_name
 ORDER BY highest_monthly_salary DESC
 LIMIT 1;
 
---3. Find All Employees Who Do Not Have a Salary
+--3. Find all employees who do not have a salary
 
 SELECT employee.forename, employee.surname, company.company_name
 FROM employee
