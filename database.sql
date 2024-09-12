@@ -15,7 +15,6 @@ INSERT INTO company (company_name, address, phone_number) VALUES
 
 SELECT * FROM company
 
-
 ----------------employee table (without salary)----------------------------------------------------
 
 CREATE TABLE employee (
@@ -27,7 +26,6 @@ CREATE TABLE employee (
     sex VARCHAR(10) CHECK (sex IN ('Male', 'Female', 'Other')) NOT NULL, 
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
-
 
 ----------------employee table (with salary)-------------------------------------------------------
 
@@ -86,8 +84,7 @@ JOIN company ON employee.company_id = company.company_id                    ----
 WHERE employee.salary_type = 'None'                                         -----> Check if salary_type is set to 'None'
   AND employee.salary = 0.00;                                               -----> Check if salary is 0.00
 
-
-
+  
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 ----------------employee may have more than company (many-to-many)---------------------------------
