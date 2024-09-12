@@ -141,6 +141,7 @@ ORDER BY highest_monthly_salary DESC
 LIMIT 1;
 
 --3. Find All Employees Who Do Not Have a Salary
+
 SELECT employee.forename, employee.surname, company.company_name
 FROM employee
 JOIN employee_company ON employee.employee_id = employee_company.employee_id
