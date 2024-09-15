@@ -1,6 +1,6 @@
 # SQL practice task
 
-## Create a Postgre schema for employee management application.
+## Create a Postgre schema for employee management application
 
 The schema should allow the following requirements:
 
