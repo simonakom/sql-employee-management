@@ -66,7 +66,7 @@ GROUP BY company.company_name                                                ---
 ORDER BY female_count DESC                                                   -----> sorting descending order
 LIMIT 1;                                                                     -----> limits the result to only 1 row (first)
 
---2. Select the company name which pays the highest monthly salary. (do not convert to hourly rate)
+--2. Select the company name which pays the highest monthly salary (do not convert to hourly rate)
 
 SELECT company.company_name, MAX(employee.salary) AS highest_monthly_salary   -----> selects the company_name from company table and MAX function calculates the maximum salary for employees in each company where the salary type is 'Monthly'
 FROM employee                                                                 -----> data from the employee table
