@@ -145,5 +145,3 @@ JOIN employee_company ON employee.employee_id = employee_company.employee_id
 JOIN company ON employee_company.company_id = company.company_id
 WHERE employee.salary_type = 'None'  
   AND employee.salary = 0.00;        
-
-
