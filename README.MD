@@ -4,10 +4,10 @@
 
 The schema should allow the following requirements:
 
-1. Employee has forename, surname, dateofbirth and sex.
-2. Sex can be Male, Female, Other.
+1. Employee has forename, surname, date of birth and sex.
+2. Sex can be male, female, other.
 3. Employee can belong to a company.
-4. Company has name, address, PhoneNo.
+4. Company has name, address, phone number.
 4. Employee can have a salary which can be hourly or monthly.
 5. Salary may not be entered.
 
@@ -18,7 +18,7 @@ The schema should allow the following requirements:
 ## Write the following quries:
 
 1. Select the company name which employs most females.
-2. Select the company name which pays the highest monthly salary. (do not convert to hourly rate).
+2. Select the company name which pays the highest monthly salary (do not convert to hourly rate).
 3. Find all employees who do not have a salary.
 
 ## Extra task
