@@ -11,11 +11,12 @@ The schema should allow the following requirements:
 4. Employee can have a salary which can be hourly or monthly.
 5. Salary may not be entered.
 
-## Populate the data:
+## Populate the data
+
 - Employee table should have at least 8 rows.
 - There should be at least 4 companies.
 
-## Write the following quries:
+## Write the following quries
 
 1. Select the company name which employs most females.
 2. Select the company name which pays the highest monthly salary (do not convert to hourly rate).
